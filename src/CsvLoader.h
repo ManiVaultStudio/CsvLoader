@@ -21,7 +21,12 @@ class CsvLoader : public QObject, public LoaderPlugin
 public:
     CsvLoader() : LoaderPlugin("CSV Loader") { }
     ~CsvLoader(void) override;
-    
+
+    /** Returns the icon of this plugin */
+    QIcon getIcon() const override {
+        return hdps::Application::getIconFont("FontAwesome").getIcon("table");
+    }
+
     void init() override;
 
     void loadData() Q_DECL_OVERRIDE;
@@ -44,10 +49,10 @@ class CsvLoaderFactory : public LoaderPluginFactory
     Q_OBJECT
     Q_PLUGIN_METADATA(IID   "nl.tudelft.CsvLoader"
                       FILE  "CsvLoader.json")
-    
+
 public:
     CsvLoaderFactory(void) {}
     ~CsvLoaderFactory(void) override {}
-    
+
     LoaderPlugin* produce() override;
 };
