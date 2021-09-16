@@ -19,13 +19,8 @@ class CsvLoader : public QObject, public LoaderPlugin
 {
     Q_OBJECT
 public:
-    CsvLoader() : LoaderPlugin("CSV Loader") { }
+    CsvLoader(PluginFactory* factory) : LoaderPlugin(factory) { }
     ~CsvLoader(void) override;
-
-    /** Returns the icon of this plugin */
-    QIcon getIcon() const override {
-        return hdps::Application::getIconFont("FontAwesome").getIcon("table");
-    }
 
     void init() override;
 
@@ -54,5 +49,10 @@ public:
     CsvLoaderFactory(void) {}
     ~CsvLoaderFactory(void) override {}
 
+	/** Returns the icon of this plugin */
+	QIcon getIcon() const override;
+
     LoaderPlugin* produce() override;
+
+	hdps::DataTypes supportedDataTypes() const override;
 };
