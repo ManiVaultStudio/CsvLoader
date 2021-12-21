@@ -1,7 +1,7 @@
 #include "CsvLoader.h"
 
 #include "PointData.h"
-#include "Set.h"
+#include "DataSet.h"
 
 #include <QtCore>
 #include <QtDebug>
@@ -60,7 +60,7 @@ namespace
     // each string to data element type T.
     template <typename T>
     void convertStringsToPointData(
-        Points& points,
+        hdps::Dataset<Points> points,
         const std::vector<QStringList>& stringLists,
         const bool hasHeaders)
     {
@@ -93,7 +93,7 @@ namespace
                 }
             }
         }
-        points.setData(std::move(data), numDimensions);
+        points->setData(std::move(data), numDimensions);
     }
 
 
@@ -101,7 +101,7 @@ namespace
     template <unsigned N = 0>
     void recursiveConvertStringsToPointData(
         const QString& selectedDataElementType,
-        Points& points,
+        hdps::Dataset<Points> points,
         const std::vector<QStringList>& stringLists,
         const bool hasHeaders)
     {
@@ -118,7 +118,7 @@ namespace
     }
 
     template <>
-    void recursiveConvertStringsToPointData<PointData::getNumberOfSupportedElementTypes()>(const QString&, Points&, const std::vector<QStringList>&, bool)
+    void recursiveConvertStringsToPointData<PointData::getNumberOfSupportedElementTypes()>(const QString&, hdps::Dataset<Points>, const std::vector<QStringList>&, bool)
     {
         // This specialization does nothing, intensionally! 
     }
@@ -178,16 +178,15 @@ void CsvLoader::dialogClosed(QString dataSetName, bool hasHeaders, QString selec
         headers = _loadedData[0];
     }
 
-    QString name = _core->addData("Points", dataSetName);
-    Points& points = _core->requestData<Points>(name);
+    hdps::Dataset<Points> points = _core->addDataset<Points>("Points", dataSetName, nullptr);
 
     recursiveConvertStringsToPointData(selectedDataElementType, points, _loadedData, hasHeaders);
 
-    qDebug() << "Number of dimensions: " << points.getNumDimensions();
+    qDebug() << "Number of dimensions: " << points->getNumDimensions();
 
-    _core->notifyDataAdded(name);
+    _core->notifyDataAdded(points);
 
-    qDebug() << "CSV file loaded. Num data points: " << points.getNumPoints();
+    qDebug() << "CSV file loaded. Num data points: " << points->getNumPoints();
 
     qDebug() << dataSetName << hasHeaders;
 }
@@ -236,6 +235,7 @@ LoaderPlugin* CsvLoaderFactory::produce()
 
 hdps::DataTypes CsvLoaderFactory::supportedDataTypes() const
 {
-	hdps::DataTypes supportedTypes;
-	return supportedTypes;
+    hdps::DataTypes supportedTypes;
+    supportedTypes.append(PointType);
+    return supportedTypes;
 }
