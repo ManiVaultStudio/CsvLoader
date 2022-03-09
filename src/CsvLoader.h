@@ -15,7 +15,7 @@ using namespace hdps::plugin;
 // View
 // =============================================================================
 
-class CsvLoader : public QObject, public LoaderPlugin
+class CsvLoader : public LoaderPlugin
 {
     Q_OBJECT
 public:

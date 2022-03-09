@@ -164,7 +164,7 @@ void CsvLoader::loadData()
     InputDialog inputDialog(nullptr);
     inputDialog.setModal(true);
 
-    connect(&inputDialog, &InputDialog::closeDialog, this, &CsvLoader::dialogClosed);
+	connect(&inputDialog, &InputDialog::closeDialog, this, &CsvLoader::dialogClosed);
 
     int inputOk = inputDialog.exec();
 }
@@ -184,7 +184,7 @@ void CsvLoader::dialogClosed(QString dataSetName, bool hasHeaders, QString selec
 
     qDebug() << "Number of dimensions: " << points->getNumDimensions();
 
-    _core->notifyDataAdded(points);
+    _core->notifyDatasetAdded(points);
 
     qDebug() << "CSV file loaded. Num data points: " << points->getNumPoints();
 
