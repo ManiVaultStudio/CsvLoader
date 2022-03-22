@@ -1,13 +1,13 @@
 #include "InputDialog.h"
 #include "PointData.h"
 
-InputDialog::InputDialog(QWidget* parent) :
+InputDialog::InputDialog(QWidget* parent, std::string& filePath) :
     QDialog(parent)
 {
-    setWindowTitle(tr("CSV Loader"));
-
+    setWindowTitle(tr("CSV Loader"));   
+    std::string fullfileName = filePath.substr(filePath.find_last_of("/\\") + 1);
     _dataNameInput = new QLineEdit();
-    _dataNameInput->setText("Dataset");
+    _dataNameInput->setText(QString::fromStdString(fullfileName.substr(0, (fullfileName.find_last_of(".")))));
 
     _headerCheckbox = new QCheckBox("Has Headers");
 

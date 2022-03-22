@@ -161,7 +161,7 @@ void CsvLoader::loadData()
     }
 
     // Gather some knowledge about the data from the user
-    InputDialog inputDialog(nullptr);
+    InputDialog inputDialog(nullptr, fileName.toStdString());
     inputDialog.setModal(true);
 
 	connect(&inputDialog, &InputDialog::closeDialog, this, &CsvLoader::dialogClosed);
