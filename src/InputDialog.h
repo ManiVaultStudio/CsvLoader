@@ -17,7 +17,7 @@ class InputDialog : public QDialog
 {
     Q_OBJECT
 public:
-    InputDialog(QWidget* parent);
+    InputDialog(QWidget* parent, std::string& filePath);
 
 signals:
     void closeDialog(QString dataSetName, bool hasHeaders, QString dataType);
