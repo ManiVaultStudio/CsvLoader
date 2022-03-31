@@ -1,7 +1,7 @@
 #include "CsvLoader.h"
 
 #include "PointData.h"
-#include "DataSet.h"
+#include "Dataset.h"
 
 #include <QtCore>
 #include <QtDebug>
@@ -161,7 +161,9 @@ void CsvLoader::loadData()
     }
 
     // Gather some knowledge about the data from the user
-    InputDialog inputDialog(nullptr, fileName.toStdString());
+	auto fileNameString = fileName.toStdString();
+
+    InputDialog inputDialog(nullptr, fileNameString);
     inputDialog.setModal(true);
 
 	connect(&inputDialog, &InputDialog::closeDialog, this, &CsvLoader::dialogClosed);
