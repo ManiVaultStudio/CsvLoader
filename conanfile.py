@@ -9,6 +9,7 @@ from rules_support import PluginBranchInfo
 
 class CsvLoaderConan(ConanFile):
     """Class to package the CsvLoader plugin using conan
+
     Packages both RELEASE and DEBUG.
     Uses rules_support (github.com/hdps/rulessupport) to derive
     versioninfo based on the branch naming convention
