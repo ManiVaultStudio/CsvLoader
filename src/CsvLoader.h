@@ -49,10 +49,22 @@ public:
     CsvLoaderFactory(void) {}
     ~CsvLoaderFactory(void) override {}
 
-    /** Returns the icon of this plugin */
-    QIcon getIcon() const override;
+    /**
+     * Get plugin icon
+     * @param color Icon color for flat (font) icons
+     * @return Icon
+     */
+    QIcon getIcon(const QColor& color = Qt::black) const override;
 
+    /**
+     * Produces the plugin
+     * @return Pointer to the produced plugin
+     */
     LoaderPlugin* produce() override;
 
+    /**
+     * Get the data types that the plugin supports
+     * @return Supported data types
+     */
     hdps::DataTypes supportedDataTypes() const override;
 };

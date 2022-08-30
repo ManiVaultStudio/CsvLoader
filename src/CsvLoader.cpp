@@ -1,7 +1,9 @@
 #include "CsvLoader.h"
 
-#include "PointData.h"
-#include "Dataset.h"
+#include <PointData.h>
+#include <Dataset.h>
+
+#include <util/Icon.h>
 
 #include <QtCore>
 #include <QtDebug>
@@ -193,37 +195,9 @@ void CsvLoader::dialogClosed(QString dataSetName, bool hasHeaders, QString selec
     qDebug() << dataSetName << hasHeaders;
 }
 
-QIcon CsvLoaderFactory::getIcon() const
+QIcon CsvLoaderFactory::getIcon(const QColor& color /*= Qt::black*/) const
 {
-	const auto margin		= 3;
-	const auto pixmapSize	= QSize(100, 100);
-	const auto pixmapRect	= QRect(QPoint(), pixmapSize).marginsRemoved(QMargins(margin, margin, margin, margin));
-	const auto halfSize		= pixmapRect.size() / 2;
-
-	// Create pixmap
-	QPixmap pixmap(pixmapSize);
-
-	// Fill with a transparent background
-	pixmap.fill(Qt::transparent);
-
-	// Create a painter to draw in the pixmap
-	QPainter painter(&pixmap);
-
-	// Enable anti-aliasing
-	painter.setRenderHint(QPainter::Antialiasing);
-
-	// Get the text color from the application
-	const auto textColor = QApplication::palette().text().color();
-
-	// Configure painter
-	painter.setFont(QFont("Arial", 30, 250));
-
-	const auto textOption = QTextOption(Qt::AlignCenter);
-
-	// Do the painting
-	painter.drawText(pixmapRect, ".CSV", textOption);
-
-	return QIcon(pixmap);
+    return createPluginIcon("TSNE", color);
 }
 
 // =============================================================================
