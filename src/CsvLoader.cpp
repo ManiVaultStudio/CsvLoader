@@ -197,7 +197,7 @@ void CsvLoader::dialogClosed(QString dataSetName, bool hasHeaders, QString selec
 
 QIcon CsvLoaderFactory::getIcon(const QColor& color /*= Qt::black*/) const
 {
-    return createPluginIcon("TSNE", color);
+    return createPluginIcon("CSV", color);
 }
 
 // =============================================================================
