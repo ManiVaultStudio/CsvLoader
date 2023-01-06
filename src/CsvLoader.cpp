@@ -190,6 +190,8 @@ void CsvLoader::dialogClosed(QString dataSetName, bool hasHeaders, QString selec
 
     _core->notifyDatasetAdded(points);
 
+    _core->notifyDatasetChanged(points);
+
     qDebug() << "CSV file loaded. Num data points: " << points->getNumPoints();
 
     qDebug() << dataSetName << hasHeaders;
