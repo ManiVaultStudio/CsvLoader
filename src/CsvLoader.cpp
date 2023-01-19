@@ -2,6 +2,7 @@
 
 #include <PointData.h>
 #include <Dataset.h>
+//#include <CoreInterface.h>
 
 #include <util/Icon.h>
 
@@ -17,6 +18,9 @@ Q_PLUGIN_METADATA(IID "nl.tudelft.CsvLoader")
 // =============================================================================
 // Loader
 // =============================================================================
+
+using namespace hdps;
+using namespace hdps::gui;
 
 namespace
 {
@@ -188,9 +192,9 @@ void CsvLoader::dialogClosed(QString dataSetName, bool hasHeaders, QString selec
 
     qDebug() << "Number of dimensions: " << points->getNumDimensions();
 
-    _core->notifyDatasetAdded(points);
+    events().notifyDatasetAdded(points);
 
-    _core->notifyDatasetChanged(points);
+    events().notifyDatasetChanged(points);
 
     qDebug() << "CSV file loaded. Num data points: " << points->getNumPoints();
 
