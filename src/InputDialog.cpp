@@ -1,5 +1,5 @@
 #include "InputDialog.h"
-#include "PointData.h"
+#include "PointData/PointData.h"
 
 InputDialog::InputDialog(QWidget* parent, std::string& filePath) :
     QDialog(parent)
