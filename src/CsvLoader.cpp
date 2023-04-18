@@ -1,6 +1,6 @@
 #include "CsvLoader.h"
 
-#include <PointData.h>
+#include <PointData/PointData.h>
 #include <Dataset.h>
 //#include <CoreInterface.h>
 
