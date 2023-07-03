@@ -2,7 +2,6 @@
 
 #include <PointData/PointData.h>
 #include <Dataset.h>
-//#include <CoreInterface.h>
 
 #include <util/Icon.h>
 
@@ -187,16 +186,12 @@ void CsvLoader::dialogClosed(QString dataSetName, bool hasHeaders, QString selec
     }
 
     hdps::Dataset<Points> points = _core->addDataset<Points>("Points", dataSetName, nullptr);
-
-    recursiveConvertStringsToPointData(selectedDataElementType, points, _loadedData, hasHeaders);
-
-    qDebug() << "Number of dimensions: " << points->getNumDimensions();
-
     events().notifyDatasetAdded(points);
 
-    events().notifyDatasetChanged(points);
+    recursiveConvertStringsToPointData(selectedDataElementType, points, _loadedData, hasHeaders);
+    events().notifyDatasetDataChanged(points);
 
-    qDebug() << "CSV file loaded. Num data points: " << points->getNumPoints();
+    qDebug() << "CSV file loaded. Num data points: " << points->getNumPoints() << ", number of dimensions: " << points->getNumDimensions();;
 
     qDebug() << dataSetName << hasHeaders;
 }
