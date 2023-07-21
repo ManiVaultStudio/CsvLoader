@@ -190,10 +190,9 @@ void CsvLoader::dialogClosed(QString dataSetName, bool hasHeaders, QString selec
 
     recursiveConvertStringsToPointData(selectedDataElementType, points, _loadedData, hasHeaders);
     events().notifyDatasetDataChanged(points);
+    events().notifyDatasetDataDimensionsChanged(points);
 
-    qDebug() << "CSV file loaded. Num data points: " << points->getNumPoints() << ", number of dimensions: " << points->getNumDimensions();;
-
-    qDebug() << dataSetName << hasHeaders;
+    qDebug() << "CSV file loaded. Name: " << dataSetName << ", num data points: " << points->getNumPoints() << ", number of dimensions: " << points->getNumDimensions() << ", has header: " << hasHeaders;
 }
 
 QIcon CsvLoaderFactory::getIcon(const QColor& color /*= Qt::black*/) const
