@@ -18,8 +18,8 @@ Q_PLUGIN_METADATA(IID "nl.tudelft.CsvLoader")
 // Loader
 // =============================================================================
 
-using namespace hdps;
-using namespace hdps::gui;
+using namespace mv;
+using namespace mv::gui;
 
 namespace
 {
@@ -65,7 +65,7 @@ namespace
     // each string to data element type T.
     template <typename T>
     void convertStringsToPointData(
-        hdps::Dataset<Points> points,
+        mv::Dataset<Points> points,
         const std::vector<QStringList>& stringLists,
         const bool hasHeaders)
     {
@@ -106,7 +106,7 @@ namespace
     template <unsigned N = 0>
     void recursiveConvertStringsToPointData(
         const QString& selectedDataElementType,
-        hdps::Dataset<Points> points,
+        mv::Dataset<Points> points,
         const std::vector<QStringList>& stringLists,
         const bool hasHeaders)
     {
@@ -123,7 +123,7 @@ namespace
     }
 
     template <>
-    void recursiveConvertStringsToPointData<PointData::getNumberOfSupportedElementTypes()>(const QString&, hdps::Dataset<Points>, const std::vector<QStringList>&, bool)
+    void recursiveConvertStringsToPointData<PointData::getNumberOfSupportedElementTypes()>(const QString&, mv::Dataset<Points>, const std::vector<QStringList>&, bool)
     {
         // This specialization does nothing, intensionally! 
     }
@@ -185,7 +185,7 @@ void CsvLoader::dialogClosed(QString dataSetName, bool hasHeaders, QString selec
         headers = _loadedData[0];
     }
 
-    hdps::Dataset<Points> points = _core->addDataset<Points>("Points", dataSetName, nullptr);
+    mv::Dataset<Points> points = _core->addDataset<Points>("Points", dataSetName, nullptr);
     events().notifyDatasetAdded(points);
 
     recursiveConvertStringsToPointData(selectedDataElementType, points, _loadedData, hasHeaders);
@@ -209,9 +209,9 @@ LoaderPlugin* CsvLoaderFactory::produce()
     return new CsvLoader(this);
 }
 
-hdps::DataTypes CsvLoaderFactory::supportedDataTypes() const
+mv::DataTypes CsvLoaderFactory::supportedDataTypes() const
 {
-    hdps::DataTypes supportedTypes;
+    mv::DataTypes supportedTypes;
     supportedTypes.append(PointType);
     return supportedTypes;
 }
