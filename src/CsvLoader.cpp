@@ -185,8 +185,7 @@ void CsvLoader::dialogClosed(QString dataSetName, bool hasHeaders, QString selec
         headers = _loadedData[0];
     }
 
-    mv::Dataset<Points> points = _core->addDataset<Points>("Points", dataSetName, nullptr);
-    events().notifyDatasetAdded(points);
+    mv::Dataset<Points> points = mv::data().createDataset<Points>("Points", dataSetName, nullptr);
 
     recursiveConvertStringsToPointData(selectedDataElementType, points, _loadedData, hasHeaders);
     events().notifyDatasetDataChanged(points);
