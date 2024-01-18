@@ -191,6 +191,12 @@ void CsvLoader::dialogClosed(QString dataSetName, bool hasHeaders, QString selec
     events().notifyDatasetDataChanged(points);
     events().notifyDatasetDataDimensionsChanged(points);
 
+    if (hasHeaders)
+    {
+        std::vector<QString> dimensionNames(headers.cbegin(),headers.cend());
+        points->setDimensionNames(std::move(dimensionNames));
+    }
+
     qDebug() << "CSV file loaded. Name: " << dataSetName << ", num data points: " << points->getNumPoints() << ", number of dimensions: " << points->getNumDimensions() << ", has header: " << hasHeaders;
 }
 
