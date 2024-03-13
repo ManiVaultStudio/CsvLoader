@@ -46,6 +46,16 @@ namespace
         return str.toUShort(&ok);
     }
 
+    template <> std::int32_t ConvertString(const QString& str, bool& ok)
+    {
+        return str.toInt(&ok);
+    }
+
+    template <> std::uint32_t ConvertString(const QString& str, bool& ok)
+    {
+        return str.toUInt(&ok);
+    }
+
     template <> std::uint8_t ConvertString(const QString& str, bool& ok)
     {
         const auto temp = str.toUShort();
