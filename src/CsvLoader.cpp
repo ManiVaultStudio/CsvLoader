@@ -4,6 +4,7 @@
 #include <Dataset.h>
 
 #include <util/Icon.h>
+#include <util/StyledIcon.h>
 
 #include <QtCore>
 #include <QtDebug>
@@ -20,6 +21,7 @@ Q_PLUGIN_METADATA(IID "nl.tudelft.CsvLoader")
 
 using namespace mv;
 using namespace mv::gui;
+using namespace mv::util;
 
 namespace
 {
@@ -213,6 +215,11 @@ void CsvLoader::dialogClosed(QString dataSetName, bool hasHeaders, QString selec
 // =============================================================================
 // Factory
 // =============================================================================
+
+CsvLoaderFactory::CsvLoaderFactory()
+{
+    setIcon(StyledIcon(createPluginIcon("CSV")));
+}
 
 LoaderPlugin* CsvLoaderFactory::produce()
 {

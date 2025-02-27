@@ -46,8 +46,9 @@ class CsvLoaderFactory : public LoaderPluginFactory
                       FILE  "CsvLoader.json")
 
 public:
-    CsvLoaderFactory(void) {}
-    ~CsvLoaderFactory(void) override {}
+    CsvLoaderFactory();
+
+    ~CsvLoaderFactory() override {}
 
     /**
      * Produces the plugin
