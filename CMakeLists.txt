@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.22)
 
 # -----------------------------------------------------------------------------
 # CsvLoader Plugin
@@ -15,8 +15,8 @@ set(CMAKE_AUTOMOC ON)
 
 if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 /DWIN32 /EHsc /MP /permissive- /Zc:__cplusplus")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:LIBCMT")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MDd")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /MD")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MD")
 endif(MSVC)
 
@@ -25,7 +25,7 @@ endif(MSVC)
 # -----------------------------------------------------------------------------
 find_package(Qt6 COMPONENTS Widgets WebEngineWidgets REQUIRED)
 
-find_package(ManiVault COMPONENTS Core PointData ClusterData ImageData CONFIG)
+find_package(ManiVault COMPONENTS Core PointData ClusterData ImageData CONFIG QUIET)
 
 # -----------------------------------------------------------------------------
 # Source files
@@ -38,9 +38,6 @@ set(SOURCES
     src/CsvLoader.json
 )
 
-set(PLUGIN_MOC_HEADERS
-	src/CsvLoader.h
-)
 source_group( Plugin FILES ${SOURCES})
 
 # -----------------------------------------------------------------------------
@@ -48,8 +45,6 @@ source_group( Plugin FILES ${SOURCES})
 # -----------------------------------------------------------------------------
 add_library(${PROJECT} SHARED ${SOURCES})
 
-qt_wrap_cpp(CSVLOADER_MOC ${PLUGIN_MOC_HEADERS} TARGET ${PROJECT})
-target_sources(${PROJECT} PRIVATE ${CSVLOADER_MOC})
 
 # -----------------------------------------------------------------------------
 # Target include directories
@@ -59,7 +54,7 @@ target_include_directories(${PROJECT} PRIVATE "${ManiVault_INCLUDE_DIR}")
 # -----------------------------------------------------------------------------
 # Target properties
 # -----------------------------------------------------------------------------
-target_compile_features(${PROJECT} PRIVATE cxx_std_17)
+target_compile_features(${PROJECT} PRIVATE cxx_std_20)
 
 # -----------------------------------------------------------------------------
 # Target library linking
@@ -97,6 +92,6 @@ set_target_properties(${PROJECT}
 # -----------------------------------------------------------------------------
 # Automatically set the debug environment (command + working directory) for MSVC
 if(MSVC)
-    set_property(TARGET ${PROJECT} PROPERTY VS_DEBUGGER_WORKING_DIRECTORY  $<IF:$<CONFIG:DEBUG>,${ManiVault_INSTALL_DIR}/debug,${ManiVault_INSTALL_DIR}/release>)
-    set_property(TARGET ${PROJECT} PROPERTY VS_DEBUGGER_COMMAND $<IF:$<CONFIG:DEBUG>,"${ManiVault_INSTALL_DIR}/debug/ManiVault Studio.exe","${ManiVault_INSTALL_DIR}/release/ManiVault Studio.exe">)
+    set_property(TARGET ${PROJECT} PROPERTY VS_DEBUGGER_WORKING_DIRECTORY $<IF:$<CONFIG:DEBUG>,${ManiVault_INSTALL_DIR}/Debug,$<IF:$<CONFIG:RELWITHDEBINFO>,${ManiVault_INSTALL_DIR}/RelWithDebInfo,${ManiVault_INSTALL_DIR}/Release>>)
+    set_property(TARGET ${PROJECT} PROPERTY VS_DEBUGGER_COMMAND $<IF:$<CONFIG:DEBUG>,"${ManiVault_INSTALL_DIR}/Debug/ManiVault Studio.exe",$<IF:$<CONFIG:RELWITHDEBINFO>,"${ManiVault_INSTALL_DIR}/RelWithDebInfo/ManiVault Studio.exe","${ManiVault_INSTALL_DIR}/Release/ManiVault Studio.exe">>)
 endif()
