@@ -210,11 +210,6 @@ void CsvLoader::dialogClosed(QString dataSetName, bool hasHeaders, QString selec
     qDebug() << "CSV file loaded. Name: " << dataSetName << ", num data points: " << points->getNumPoints() << ", number of dimensions: " << points->getNumDimensions() << ", has header: " << hasHeaders;
 }
 
-QIcon CsvLoaderFactory::getIcon(const QColor& color /*= Qt::black*/) const
-{
-    return createPluginIcon("CSV", color);
-}
-
 // =============================================================================
 // Factory
 // =============================================================================
