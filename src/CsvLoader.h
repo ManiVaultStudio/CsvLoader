@@ -46,15 +46,9 @@ class CsvLoaderFactory : public LoaderPluginFactory
                       FILE  "CsvLoader.json")
 
 public:
-    CsvLoaderFactory(void) {}
-    ~CsvLoaderFactory(void) override {}
+    CsvLoaderFactory();
 
-    /**
-     * Get plugin icon
-     * @param color Icon color for flat (font) icons
-     * @return Icon
-     */
-    QIcon getIcon(const QColor& color = Qt::black) const override;
+    ~CsvLoaderFactory() override {}
 
     /**
      * Produces the plugin
