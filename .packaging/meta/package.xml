@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package>
+	<DisplayName>Csv Loader</DisplayName>
+	<Description>CSV loader plugin for the BioVault visual analytics framework</Description>
+	<Dependencies>Com.BioVault.Packaging.Plugins</Dependencies>
+	<Default>true</Default>
+	<ForcedInstallation>true</ForcedInstallation>
+	<Version>1.0</Version>
+	<ReleaseDate>2025-10-31</ReleaseDate>
+	<Name>Com.BioVault.Packaging.Plugins.CsvLoader</Name>
+</Package>
